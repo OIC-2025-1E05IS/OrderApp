@@ -1,0 +1,146 @@
+﻿<Window x:Class="OrderApp.Kaikei"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            Title="ラーメン券売機"
+            Width="450"
+            Height="700"
+            WindowStartupLocation="CenterScreen"
+            FontFamily="Meiryo UI">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="406*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 背景 -->
+        <Border Grid.Row="0" Grid.RowSpan="2" Background="#3A4A5A" Grid.ColumnSpan="2"/>
+        <Border Grid.Row="2" Grid.RowSpan="2" Background="#6A7C8A" Grid.ColumnSpan="2"/>
+
+        <!-- 高額紙幣ボタン -->
+        <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="4,0,0,0">
+            <Button Content="10000" Width="55" Height="28" Margin="3"/>
+            <Button Content="5000"  Width="55" Height="28" Margin="3"/>
+            <Button Content="2000"  Width="55" Height="28" Margin="3"/>
+            <Button Content="1000"  Width="55" Height="28" Margin="3"/>
+            <Button Content="電子マネー" Width="90" Height="28" Margin="15,3,3,3"/>
+        </StackPanel>
+
+        <!-- 金額表示 -->
+        <Grid Grid.Row="1" Margin="10,0,10,0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="#8FA1B5" BorderThickness="0,0,0,1"/>
+                <Border Grid.Row="1" BorderBrush="#8FA1B5" BorderThickness="0,0,0,1"/>
+
+                <!-- 商品合計 -->
+                <TextBlock Grid.Row="0" Text="商品合計" FontSize="24" Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="0" x:Name="txtGoukei" Text="¥0" FontSize="36" FontWeight="Bold"
+                               Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                <!-- お預かり（直接入力） -->
+                <TextBlock Grid.Row="1" Text="お預かり" FontSize="24" Foreground="White" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" x:Name="txtAzukariInput"
+                             FontSize="36" FontWeight="Bold"
+                             Foreground="White" Background="Transparent"
+                             BorderThickness="0"
+                             HorizontalAlignment="Right" VerticalAlignment="Center"
+                             Width="200" TextAlignment="Right"
+                             InputScope="Number"
+                             TextChanged="txtAzukariInput_TextChanged"/>
+
+                <!-- 不足 / おつり -->
+                <TextBlock Grid.Row="2" x:Name="lblSashihiki" Text="不足" FontSize="24"
+                               Foreground="#8FF0D8" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="2" x:Name="txtSashihiki" Text="¥0" FontSize="36" FontWeight="Bold"
+                               Foreground="#8FF0D8" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- 領収証 -->
+            <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                <TextBlock FontSize="18" Foreground="White"
+                               HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <Button Content="食券発券"  Height="45" Click="HakkouButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- 戻る -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Button x:Name="BtnModoru" Content="← もどる" Width="95" Height="35"
+                        HorizontalAlignment="Left" Margin="15,0,0,0" Click="Button_Click"/>
+            <TextBlock Text="お支払方法を選択してください"
+                           FontSize="18" Foreground="White"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- 通常画面（現金・電子マネー選択） -->
+        <StackPanel x:Name="NormalPanel"
+                        Grid.Row="3"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="35,10,0,0" Grid.ColumnSpan="2">
+
+            <Button x:Name="CashButton"
+                        Content="現金"
+                        Width="210" Height="75" FontSize="24"
+                        Click="CashButton_Click"/>
+
+            <Border Width="210" BorderBrush="#D0D0D0" BorderThickness="1" Margin="0,15,0,0">
+                <StackPanel Margin="0,10">
+                    <TextBlock Text="電子マネー" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
+                    <Border Width="75" Height="50" Background="White" HorizontalAlignment="Center" Margin="0,8">
+                        <TextBlock Text="IC" FontSize="30" FontWeight="Bold" Foreground="Red"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="交通系(現在使用できません)" FontSize="18" Foreground="White" HorizontalAlignment="Center" Height="29"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+
+        <!-- 現金投入画面 -->
+        <StackPanel x:Name="CashInputPanel"
+                Grid.Row="3"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Visibility="Collapsed" Grid.Column="1" Margin="0,0,0,0">
+            <Image Source="cash_payment_screen.png"
+               Width="350"
+               Stretch="Uniform"
+               HorizontalAlignment="Center"
+               Margin="0,10"/>
+        </StackPanel>
+
+        <!-- お取り忘れ画面 -->
+        <StackPanel x:Name="AfterIssuePanel"
+    Grid.Row="3"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Center"
+    Visibility="Collapsed" Grid.Column="1" Margin="0,0,0,0">
+            <TextBlock x:Name="txtAfterMessage"
+               Text="食券発行ボタンを押してください。お取り忘れにご注意ください"
+               FontSize="28" FontWeight="Bold"
+               Foreground="White" TextAlignment="Center"
+               TextWrapping="Wrap"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

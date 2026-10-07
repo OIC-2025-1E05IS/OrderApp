@@ -5,8 +5,182 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OrderApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="ラーメン券売機" Height="700" Width="450"
+        MinHeight="500" MinWidth="350"
+        WindowStartupLocation="CenterScreen">
+    <Viewbox Stretch="Uniform" Width="450" Height="699.7">
 
-    </Grid>
+        <Grid Background="#FFFDFF35" Width="450" Height="700">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="71*"/>
+                <ColumnDefinition Width="19*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="329"/>
+                <RowDefinition Height="Auto" MinHeight="106"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#222222" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="8,0" Background="#444444">
+                    <Button Content="English" Margin="2" Padding="5,2" FontSize="10"/>
+                    <Button Content="中文(簡体)" Margin="2" Padding="5,2" FontSize="10"/>
+                    <Button Content="한국어" Margin="2" Padding="5,2" FontSize="10"/>
+                </StackPanel>
+            </Grid>
+
+            <Image Grid.Row="2" Source="/Images/Main.png"
+                   Stretch="Uniform"
+                   Margin="52,97,47,75" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+
+            <StackPanel Grid.Row="3" VerticalAlignment="Center"
+                        HorizontalAlignment="Left" Height="54" Width="142" Margin="154,0,0,0"/>
+
+            <UniformGrid Grid.Row="4" Columns="3" Margin="10,5,10,15" Grid.RowSpan="2" Grid.ColumnSpan="2">
+
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="/Images/Main.png"
+                           Stretch="Uniform" Height="133" VerticalAlignment="Top"
+                           Margin="-18,-8,-7,0" MouseLeftButtonDown="Ramen_img_click"/>
+                    <Button Content="ラーメン"
+                            FontSize="25" FontWeight="Bold"
+                            Foreground="#FFF9241A" Background="White"
+                            Height="45" Margin="0,120,0,0" VerticalAlignment="Top"
+                            Click="Ramen_btn">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" CornerRadius="10"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="3">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+                                            <GradientStop Color="#FFC7C2C2" Offset="0.5"/>
+                                            <GradientStop Color="#FFBEBEBE" Offset="0.5"/>
+                                            <GradientStop Color="#FF8E8E8E" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="/Images/SoupNG.png"
+                           Stretch="Uniform" VerticalAlignment="Top" Height="134"
+                           Margin="-5,-2,-12,0" MouseLeftButtonDown="sirunasi_img_click"/>
+                    <Button Content="汁なし"
+                            FontSize="25" FontWeight="Bold"
+                            Foreground="#FF2A563F" Background="White"
+                            Height="45" Margin="6,122,-6,0" VerticalAlignment="Top"
+                            Click="Sirunasi_btn">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" CornerRadius="10"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="3">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+                                            <GradientStop Color="#FFC7C2C2" Offset="0.5"/>
+                                            <GradientStop Color="#FFBEBEBE" Offset="0.5"/>
+                                            <GradientStop Color="#FF8E8E8E" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="/Images/tsukemen_new.png"
+                           Stretch="Uniform" VerticalAlignment="Top" Height="134"
+                           Margin="-4,-10,-13,0" MouseLeftButtonDown="tukemen_img_click"/>
+                    <Button Content="つけ麺"
+                            FontSize="25" FontWeight="Bold"
+                            Foreground="#FF9A6734" Background="White"
+                            Height="45" Margin="4,122,-4,0" VerticalAlignment="Top"
+                            Click="Tsukemen_btn">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="border" CornerRadius="10"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="3">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
+                                            <GradientStop Color="#FFC7C2C2" Offset="0.5"/>
+                                            <GradientStop Color="#FFBEBEBE" Offset="0.5"/>
+                                            <GradientStop Color="#FF8E8E8E" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+            </UniformGrid>
+
+            <Label Content="ラーメン山豚" HorizontalAlignment="Left" Margin="87,19,0,0"
+                   VerticalAlignment="Top" FontSize="53" Foreground="White"
+                   Height="80" Width="264" Grid.Row="2"/>
+            <Label Content="ラーメン山豚" HorizontalAlignment="Left" Margin="82,22,0,0"
+                   VerticalAlignment="Top" FontSize="53" Foreground="White"
+                   Height="80" Width="264" Grid.Row="2"/>
+            <Label Content="山豚" HorizontalAlignment="Left" Margin="234,21,0,0"
+                   VerticalAlignment="Top" FontWeight="Bold" FontSize="50"
+                   Height="77" Width="110" Grid.Row="2"/>
+            <Label Content="ラーメン" HorizontalAlignment="Center" VerticalAlignment="Top"
+                   FontWeight="Bold" FontSize="50" Background="{x:Null}" Foreground="Red"
+                   Width="185" Height="77" Grid.Row="2" Margin="0,19,0,0"/>
+            <TextBlock Text="お好きなラーメンを"
+                       FontSize="20" FontWeight="Bold"
+                       Margin="165,45,48,17" Grid.Row="3"/>
+            <TextBlock Text="お選びください"
+                       FontSize="20" FontWeight="Bold"
+                       HorizontalAlignment="Left" Margin="179,72,0,199"
+                       Grid.Row="3" Grid.RowSpan="2" Width="113"/>
+
+        </Grid>
+    </Viewbox>
 </Window>
